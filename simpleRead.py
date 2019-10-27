@@ -14,7 +14,7 @@ def read_card():
         pn532 = Pn532_i2c()
         pn532.SAMconfigure()
         card_data = pn532.read_mifare().get_data()
-        dir(ndef.message_decoder(card_data))
+        print(dir(ndef.message_decoder(card_data)))
 
 
 if __name__ == '__main__':
