@@ -39,5 +39,4 @@ def read_card():
             time.sleep(5)
 
 if __name__ == '__main__':
-    #Thread(target = open_img).start()
     Thread(target = read_card).start()
