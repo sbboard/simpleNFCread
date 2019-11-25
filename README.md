@@ -1,5 +1,4 @@
-Simple NFC Message Reader
+Simple NFC Record Reader
 ========
 Build from DanyO's py532lib.
-
-https://ndeflib.readthedocs.io/en/latest/
+Using foundation built by echohatch1
