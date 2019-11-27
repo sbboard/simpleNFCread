@@ -28,14 +28,14 @@ def open_vid(vid):
     
 #listen for nfc cards    
 def read_card():
+    card = Mifare()
     while True:
+        card.SAMconfigure()
+        card.set_max_retries(MIFARE_SAFE_RETRIES)
+        uid = card.scan_field()
         try:
-            card = Mifare()
-            card.SAMconfigure()
-            card.set_max_retries(MIFARE_SAFE_RETRIES)
-            uid = card.scan_field()
             if uid:
-                blocksToExplore = [0,1,2,3]
+                blocksToExplore = [0,1]
                 dataArray = []
                 for block in blocksToExplore:
                     address = card.mifare_address(1,block)
@@ -60,24 +60,19 @@ def read_card():
                     s = "invalid"
                     
                 if s == "cardOne":
-                    print("card 1")
+                    print(s)
                     open_vid("/home/pi/Desktop/hatch3/sample.mp4")
-                    card = ""
+                    card.reset_i2c()
 
                 elif s == "cardTwo":
-                    print("card 2")
+                    print(s)
                     open_vid("/home/pi/Desktop/hatch3/trash.mp4")
-                    card = ""
-                
-                elif s == "invalid":
-                    print("Invalid card")
-                    card = ""
-                    time.sleep(2)
+                    card.reset_i2c()
                     
                 else:
                     print("Card not recognized")
-                    card = ""
-                    time.sleep(2)
+                    card.reset_i2c()
+                    
         except Exception as e:
             print("whoops: " + str(e))
 
